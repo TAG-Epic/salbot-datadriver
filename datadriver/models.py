@@ -2,10 +2,27 @@
 Created by Epic at 7/4/20
 """
 
-from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, BIGINT, Integer, DateTime, String
+from sqlalchemy.ext.declarative import declarative_base
 
 Base = declarative_base()
+
+
+def jsonify_ban(ban):
+    return {
+        "id": ban.id,
+        "reason": ban.reason,
+        "banned_at": ban.banned_at.timestamp(),
+        "expires_at": None if ban.expires_at.timestamp() == 0 else ban.expires_at.timestamp()
+    }
+
+
+def jsonify_user(user):
+    return {
+        "id": user.id,
+        "messages": user.messages,
+        "join_date": user.join_date.timestamp()
+    }
 
 
 class User(Base):
