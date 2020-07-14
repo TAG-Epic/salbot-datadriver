@@ -39,7 +39,7 @@ class User(Base):
 class Ban(Base):
     __tablename__ = "bans"
 
-    id = Column(BIGINT, primary_key=True, unique=True)
+    id = Column(BIGINT, primary_key=True)
     banned_at = Column(DateTime)
     expires_at = Column(DateTime)
 
