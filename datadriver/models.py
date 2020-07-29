@@ -8,12 +8,13 @@ from sqlalchemy.ext.declarative import declarative_base
 Base = declarative_base()
 
 
-def jsonify_ban(ban):
+def jsonify_punishment(punishment):
     return {
-        "id": ban.id,
-        "reason": ban.reason,
-        "banned_at": ban.banned_at.timestamp(),
-        "expires_at": None if ban.expires_at.timestamp() == 0 else ban.expires_at.timestamp()
+        "punishment_type": punishment.punishment_type,
+        "punished_id": punishment.punished_id,
+        "moderator_id": punishment.moderator_id,
+        "punished_at": punishment.punished_at.timestamp(),
+        "expires_at": None if punishment.expires_at.timestamp() == 0 else punishment.expires_at.timestamp()
     }
 
 
@@ -36,11 +37,15 @@ class User(Base):
         return f"<User(id={self.id}, messages=f{self.messages}, join_date=f{self.join_date})>"
 
 
-class Ban(Base):
-    __tablename__ = "bans"
+class Punishment(Base):
+    __tablename__ = "punishments"
 
-    id = Column(BIGINT, primary_key=True)
-    banned_at = Column(DateTime)
+    punishment_type = Column(String)
+
+    punished_id = Column(BIGINT, primary_key=True)
+    moderator_id = Column(BIGINT)
+
+    punished_at = Column(DateTime)
     expires_at = Column(DateTime)
 
     reason = Column(String)
