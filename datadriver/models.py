@@ -49,3 +49,10 @@ class Punishment(Base):
     expires_at = Column(DateTime)
 
     reason = Column(String)
+
+
+class Faq(Base):
+    __tablename__ = "faq"
+
+    name = Column(String, primary_key=True, unique=True)
+    description = Column(String)
