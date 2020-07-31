@@ -2,7 +2,7 @@
 Created by Epic at 7/4/20
 """
 
-from sqlalchemy import Column, BIGINT, Integer, DateTime, String
+from sqlalchemy import Column, BIGINT, Integer, DateTime, String, Boolean
 from sqlalchemy.ext.declarative import declarative_base
 
 Base = declarative_base()
@@ -10,7 +10,9 @@ Base = declarative_base()
 
 def jsonify_punishment(punishment):
     return {
+        "punishment_id": punishment.punishment_id,
         "punishment_type": punishment.punishment_type,
+        "expired": punishment.expired,
         "punished_id": punishment.punished_id,
         "moderator_id": punishment.moderator_id,
         "punished_at": punishment.punished_at.timestamp(),
@@ -40,9 +42,11 @@ class User(Base):
 class Punishment(Base):
     __tablename__ = "punishments"
 
+    punishment_id = Column(String, primary_key=True, unique=True)
     punishment_type = Column(String)
+    expired = Column(Boolean)
 
-    punished_id = Column(BIGINT, primary_key=True)
+    punished_id = Column(BIGINT)
     moderator_id = Column(BIGINT)
 
     punished_at = Column(DateTime)
