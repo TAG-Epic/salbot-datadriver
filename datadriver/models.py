@@ -16,7 +16,8 @@ def jsonify_punishment(punishment):
         "punished_id": punishment.punished_id,
         "moderator_id": punishment.moderator_id,
         "punished_at": punishment.punished_at.timestamp(),
-        "expires_at": None if punishment.expires_at.timestamp() == 0 else punishment.expires_at.timestamp()
+        "expires_at": None if punishment.expires_at.timestamp() == 0 else punishment.expires_at.timestamp(),
+        "reason": punishment.reason
     }
 
 
